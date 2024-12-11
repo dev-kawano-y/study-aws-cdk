@@ -1,16 +1,15 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
+import { aws_ec2 } from "aws-cdk-lib";
+import { MultiEnvStackProps } from "../bin/multi-env";
 
 export class MultiEnvStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+  constructor(scope: Construct, id: string, props: MultiEnvStackProps) {
     super(scope, id, props);
 
-    // The code that defines your stack goes here
-
-    // example resource
-    // const queue = new sqs.Queue(this, 'MultiEnvQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
+    // VPC 作る
+    const vpc = new aws_ec2.Vpc(this, 'Vpc', {
+      vpcName: `multienv-${props.envName}-vpc`,
+    });
   }
 }
